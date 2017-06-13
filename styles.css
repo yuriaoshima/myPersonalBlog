@@ -1,0 +1,109 @@
+body {
+  font-size: 100%;
+  width: 80%;
+  margin: auto;
+  font-family: 'Bubbler One', sans-serif;
+}
+
+h1 {
+  font-size: 300%;
+  letter-spacing: 0.2rem;
+  text-align: center;
+  padding: 1rem 0;
+  color: teal;
+  background-image: url("images/h1-background.jpg");
+}
+
+h2 {
+  font-size: 250%;
+  color: teal;
+  padding-top: 1rem;
+}
+
+h3 {
+  font-size: 200%;
+  font-weight: 100;
+  margin-bottom: 0;
+  letter-spacing: 0.25rem;
+  width: 72%;
+}
+
+h4 {
+  font-style: italic;
+  letter-spacing: 0.1rem;
+  margin-top: 0.2rem;
+  width: 72%;
+}
+
+p {
+  letter-spacing: 0.1rem;
+}
+
+aside {
+  background: linear-gradient(aquamarine, honeydew, white, aquamarine);
+  float: left;
+  padding: 1rem 0.8rem 1rem 1rem;
+  width: 26%;
+  font-size: 180%;
+  line-height: 2.2rem;
+}
+
+aside p {
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+#blogBody {
+  float: left;
+  padding-left: 5%;
+  width: 65%;
+}
+
+#blogBody p {
+  font-size: 150%;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+hr {
+  margin-left: 0;
+  width: 100%;
+  border: rgba(0, 153, 153, 0.2) solid 0.1rem;
+}
+
+form {
+  display: none;
+  background-image: url("images/h1-background.jpg");
+  padding: 0rem 0 1rem 1rem;
+}
+
+div {
+  padding-top: 0.1rem;
+}
+
+button {
+  font-family: 'Bubbler One', sans-serif;
+  font-weight: bold;
+  font-size: 59%;
+  border-radius: 5%;
+  padding: 0.3rem;
+  color: teal;
+  background-color: white;
+  border: solid skyblue 0.1rem;
+}
+
+form button {
+  font-size: 120%;
+  border: solid skyblue 0.1rem;
+}
+
+input, textarea {
+  padding: 0.1rem;
+  margin-bottom: 0.2rem;
+  border: skyblue solid 0.1rem;
+  font-family: 'Bubbler One', sans-serif; 
+  font-size: 150%;
+}
+
+
+

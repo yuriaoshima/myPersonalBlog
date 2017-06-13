@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Blog of Ideas</title>
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css"> 
+  </head>
+  <body>
+    <h1>Personal Blog of Awesome Ideas</h1>
+    <aside>
+      <p>Welcome to my personal blog where I keep track of the new ideas I come up with! Ideas range from new things to try to awesome ideas for new inventions</p>
+      <button id="newEntry" type="button">Submit A New Idea!</button>
+      <button id="clear" type="button">Clear All Blog Entries</button>
+    </aside>
+   
+    <!--template for how the blogs should look in the body-->
+    <script id="blogTemplate" type="text/x-handlebars-template">
+      {{#each blogItems}}
+        <div>
+          <h3>{{title}}</h3>
+          <h4>{{date}}</h4>
+          <p>{{entry}}</p>
+          <hr>
+        </div>
+      {{/each}}
+    </script>
+    
+    <!--this is where we will append the blog entries-->
+    <section id="blogBody"></section>
+    
+    <!--form for user to enter new blog/idea entries-->
+    <form id="newIdeaForm">
+      <h2>New Idea Entry</h2>
+      <input id="title" type="text" placeholder="Title"><br>
+      <input id="todaysDate" type="date"><br>
+      <textarea id="entry" rows="10" cols="50" placeholder="Enter new idea here!"></textarea><br>
+      <button id="submit" type="button">Submit</button>
+      <button id="cancel" type="button">Cancel</button>
+    </form>
+    
+    <!--link for jquery and javascript code-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
