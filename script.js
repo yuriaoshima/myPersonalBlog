@@ -6,26 +6,6 @@ var blogItems = [];
 
 //at startup read from database and load the page with blog entries. Also create delete buttons for each entry
 $(document).ready(function() {
-  /*$.ajax(url, {
-    method: 'GET',
-    success: function(data) {
-      var body = $('#blogBody');
-      //set the blog items to the data we got from the db
-      blogItems = data;
-      for (var i = 0; i < blogItems.length; i++) {
-        var title = $('<h3>').text(blogItems[i].title);
-        var date = $('<h4>').text(blogItems[i].date);
-        var body = $('<p>').text(blogItems[i].entry);
-        //create a delete button to append to the entry and also save the database id into the value attr of the button
-        var delButton = $('<button>').text('Delete Entry').attr('val', blogItems[i]._id).attr('type', 'button');
-        $('#blogBody').append($('<div>').append(title).append(date).append(body).append(delButton).append($('<hr>')));
-        //must add the event handler here so that each button has a handler. This way we don't need unique ids for each button. We can also pass in the db id for each button
-        delButton.on('click', function() {
-          handleDelete(delButton.attr('val'));
-        });
-      }
-    }
-  });*/
   loadPage();
 });
 
@@ -89,25 +69,7 @@ function handleEntrySubmit() {
     }
   });
   
-  //now get the data and load the page
-  /*$.ajax(url, {
-    method: 'GET',
-    success: function(data) {
-      var body = $('#blogBody');
-      blogItems = data;
-      for (var i = 0; i < blogItems.length; i++) {
-        var title = $('<h3>').text(blogItems[i].title);
-        var date = $('<h4>').text(blogItems[i].date);
-        var body = $('<p>').text(blogItems[i].entry);
-        var delButton = $('<button>').text('Delete Entry').attr('val', blogItems[i]._id).attr('type', 'button');
-        $('#blogBody').append($('<div>').append(title).append(date).append(body).append(delButton).append($('<hr>')));
-        //add event handler for each button like in the document.ready function
-        delButton.on('click', function() {
-          handleDelete(delButton.attr('val'));
-        });
-      }
-    }
-  });*/
+  //reload the page
   blogBody.html("");
   loadPage();
 
