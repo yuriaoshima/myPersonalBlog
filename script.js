@@ -4,25 +4,32 @@ var url = 'https://pacific-meadow-64112.herokuapp.com/data-api/taoshima';
 //array to hold the blog items as objects
 var blogItems = [];
 
-//initialize the blog template
-var blogTemplate = Handlebars.compile($('#blogTemplate').html());
-
-//at startup, read from the MONGO database and load the blog entries into the webpage
+//at startup read from database and load the page with blog entries. Also create delete buttons for each entry
 $(document).ready(function() {
-  $.ajax(url, {
+  /*$.ajax(url, {
     method: 'GET',
-    success: function(items) {
-      //set the blog items array equal to the "items" we got from the database
-      blogItems = items;
-      console.log(blogItems);
-      /*now take this data and enter into the template. You always have to have the var data = {} format where whatever is in the {} has to match the keywork you put in the template*/
-      var data = {blogItems};
-      var html = blogTemplate(data);
-      $('#blogBody').html(html);
+    success: function(data) {
+      var body = $('#blogBody');
+      //set the blog items to the data we got from the db
+      blogItems = data;
+      for (var i = 0; i < blogItems.length; i++) {
+        var title = $('<h3>').text(blogItems[i].title);
+        var date = $('<h4>').text(blogItems[i].date);
+        var body = $('<p>').text(blogItems[i].entry);
+        //create a delete button to append to the entry and also save the database id into the value attr of the button
+        var delButton = $('<button>').text('Delete Entry').attr('val', blogItems[i]._id).attr('type', 'button');
+        $('#blogBody').append($('<div>').append(title).append(date).append(body).append(delButton).append($('<hr>')));
+        //must add the event handler here so that each button has a handler. This way we don't need unique ids for each button. We can also pass in the db id for each button
+        delButton.on('click', function() {
+          handleDelete(delButton.attr('val'));
+        });
+      }
     }
-  });
+  });*/
+  loadPage();
 });
 
+//event handlers
 $('#newEntry').on('click', addNewIdea);
 $('#cancel').on('click', handleCancel);
 $('#submit').on('click', handleEntrySubmit);
@@ -65,31 +72,51 @@ function handleEntrySubmit() {
   var title = $('<h3>').text(entryTitle);
   var date = $('<h4>').text(entryDate);
   var body = $('<p>').text(blogEntry);
-  //attach elements to divs which are used to separate different entries
-  blogBody.append($('<div>').append(title).append(date).append(body));
   
+  //save this data to a MONGO database server provided by instructor using the REST API 
+  $.ajax(url, {
+    method: 'POST',
+    data: {
+      title: entryTitle,
+      date: entryDate,
+      entry: blogEntry
+    },
+    success: function() {
+      console.log("data posted successfully");
+    },
+    error: function() {
+      cosole.log("AJAX error. Data not posted");
+    }
+  });
+  
+  //now get the data and load the page
+  /*$.ajax(url, {
+    method: 'GET',
+    success: function(data) {
+      var body = $('#blogBody');
+      blogItems = data;
+      for (var i = 0; i < blogItems.length; i++) {
+        var title = $('<h3>').text(blogItems[i].title);
+        var date = $('<h4>').text(blogItems[i].date);
+        var body = $('<p>').text(blogItems[i].entry);
+        var delButton = $('<button>').text('Delete Entry').attr('val', blogItems[i]._id).attr('type', 'button');
+        $('#blogBody').append($('<div>').append(title).append(date).append(body).append(delButton).append($('<hr>')));
+        //add event handler for each button like in the document.ready function
+        delButton.on('click', function() {
+          handleDelete(delButton.attr('val'));
+        });
+      }
+    }
+  });*/
+  blogBody.html("");
+  loadPage();
+
   //when user clicks submit remove the values entered in form so that it is blank for the next form submission
   $('#title').val('');
   $('#entry').val('');
   
   //when user clicks submit, the form needs to be hidden which is the same functionality as the handleCancel function
   handleCancel();
-  
-  //save this data to a MONGO database server provided by instructor using the REST API 
-  $.ajax(url, {
-      method: 'POST',
-      data: {
-        title: entryTitle,
-        date: entryDate,
-        entry: blogEntry
-      },
-      success: function() {
-        console.log("data posted successfully");
-      },
-      error: function() {
-        cosole.log("AJAX error. Data not posted");
-      }
-    });
 }
 
 function returnDate() {
@@ -126,6 +153,41 @@ function clearDatabase() {
           }
         });
       });
+    }
+  });
+}
+
+//if user clicks delete button inside the blogBody call delete function
+function handleDelete(id) {
+  $.ajax(url + '/' + id, {
+    method: 'DELETE',
+    success: function() {
+      console.log("database cleared");
+    },
+    error: function() {
+      console.log("could not clear database");
+    }
+  });
+}
+
+function loadPage() {
+  //now get the data and load the page
+  $.ajax(url, {
+    method: 'GET',
+    success: function(data) {
+      var body = $('#blogBody');
+      blogItems = data;
+      for (var i = 0; i < blogItems.length; i++) {
+        var title = $('<h3>').text(blogItems[i].title);
+        var date = $('<h4>').text(blogItems[i].date);
+        var body = $('<p>').text(blogItems[i].entry);
+        var delButton = $('<button>').text('Delete Entry').attr('val', blogItems[i]._id).attr('type', 'button');
+        $('#blogBody').append($('<div>').append(title).append(date).append(body).append(delButton).append($('<hr>')));
+        //add event handler for each button like in the document.ready function
+        delButton.on('click', function() {
+          handleDelete(delButton.attr('val'));
+        });
+      }
     }
   });
 }
