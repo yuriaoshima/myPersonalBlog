@@ -109,5 +109,29 @@ input, textarea {
   font-size: 150%;
 }
 
-
+@media(max-width: 950px) {
+  body {
+    width: 90%;
+  }
+  
+  aside {
+    clear: both;
+    width: 95.5%;
+    padding: 0 0 2rem 2rem;
+  }
+  
+  aside p {
+    width: 95%;
+  }
+  
+  #blogBody {
+    clear: both;
+    width: 95.5%;
+    padding: 0 0 1rem 2rem;
+  }
+  
+  hr {
+    width: 95%;
+  }
+}
 
